@@ -97,7 +97,9 @@
         .about-hero {
             height: 100vh;
             margin-top: 0;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('IMG_5704.PNG');
+            background-color: #111; /* fallback while image loads */
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/IMG_5704.PNG');
+            background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
             display: flex;
@@ -280,7 +282,7 @@
     <header>
         <div class="container nav-container">
             <a href="index.html" class="logo">
-                <img src="IMG_4649.PNG" alt="Logo" class="logo-img">
+                <img src="images/IMG_4649.PNG" alt="Logo" class="logo-img">
                 GAURAV GARDEN
             </a>
             <div class="hamburger"><i data-lucide="menu"></i></div>
@@ -292,8 +294,6 @@
                 <a href="about.html" class="active">About</a>
                 <a href="contact.html">Contact</a>
                 <a href="reservations.html" class="btn-nav">Book Table</a>
-
-                    
             </nav>
         </div>
     </header>
@@ -412,7 +412,7 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <div class="logo" style="margin-bottom: 20px; color: white;">
-                        <i data-lucide="flower-2"></i> GAURAO GARDEN
+                        <i data-lucide="flower-2"></i> GAURAV GARDEN
                     </div>
                     <p>The best dining experience for you and your family. We serve love on a plate with memories.</p>
                 </div>
@@ -481,10 +481,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
