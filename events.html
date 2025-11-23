@@ -1,602 +1,491 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events | Gaurav Garden</title>
-    <!-- Fonts: Playfair Display (Serif) & Lato (Sans) -->
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <style>
-        :root {
-            --primary-maroon: #7F1D1D; 
-            --primary-hover: #5e1414;
-            --accent-gold: #D4AF37; 
-            --accent-gold-light: #FDE047;
-            --bg-light: #FAFAF9;
-            --text-dark: #1C1917;
-            --text-gray: #57534E;
-            --white: #FFFFFF;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Events | Gaurav Garden</title>
+  <!-- Fonts: Playfair Display (Serif) & Lato (Sans) -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+  <style>
+    :root {
+      --primary-maroon: #7F1D1D;
+      --primary-hover: #5e1414;
+      --accent-gold: #D4AF37;
+      --accent-gold-light: #FDE047;
+      --bg-light: #FAFAF9;
+      --text-dark: #1C1917;
+      --text-gray: #57534E;
+      --white: #FFFFFF;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
 
-        body {
-            font-family: 'Lato', sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-dark);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        h1, h2, h3, h4, .serif { font-family: 'Playfair Display', serif; }
+    body {
+      font-family: 'Lato', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-        /* --- Header / Nav --- */
-        header {
-            background-color: var(--white);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
+    h1,h2,h3,h4,.serif { font-family: 'Playfair Display', serif; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+    header { background-color: var(--white); box-shadow: 0 1px 3px rgba(0,0,0,0.05); position: fixed; width: 100%; top: 0; z-index: 1000; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .nav-container { display:flex; justify-content:space-between; align-items:center; height:80px; }
 
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 80px;
-        }
+    .logo { font-family:'Playfair Display', serif; font-weight:700; font-size:1.5rem; color:var(--primary-maroon); text-decoration:none; letter-spacing:1px; display:flex; align-items:center; gap:10px;}
+    .nav-links { display:flex; gap:30px; align-items:center; }
+    .nav-links a { text-decoration:none; color:var(--text-dark); font-weight:500; font-size:0.95rem; transition:color .3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary-maroon); }
+    .btn-nav { background-color: var(--primary-maroon); color: white !important; padding:10px 20px; border-radius:4px; transition: background .3s; }
+    .btn-nav:hover { background-color: var(--primary-hover); }
+    .hamburger { display:none; cursor:pointer; font-size:1.5rem; }
 
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--primary-maroon);
-            text-decoration: none;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    .events-hero { height:60vh; margin-top:80px; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1519671482502-9759101d4561?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80'); background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center; text-align:center; color:white; }
+    .events-hero h1 { font-size:3.5rem; margin-bottom:15px; }
+    .events-hero p { font-size:1.1rem; max-width:600px; margin:0 auto; color:rgba(255,255,255,0.9); }
 
-        .nav-links { display: flex; gap: 30px; align-items: center; }
+    section { padding: 80px 0; }
+    .section-title { text-align:center; margin-bottom:50px; }
+    .section-subtitle { color:var(--primary-maroon); font-weight:700; text-transform:uppercase; font-size:0.8rem; letter-spacing:2px; display:block; margin-bottom:10px; }
+    .section-title h2 { font-size:2.5rem; color:var(--text-dark); }
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.3s;
-        }
+    .spaces-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(350px,1fr)); gap:40px; }
+    .space-card { background:white; border-radius:8px; overflow:hidden; box-shadow:var(--shadow); transition:transform .3s; }
+    .space-card:hover { transform:translateY(-5px); }
+    .space-img { height:250px; width:100%; object-fit:cover; }
+    .space-content { padding:30px; }
+    .capacity-badge { display:inline-flex; align-items:center; gap:5px; background-color:#FEF3C7; color:#92400E; padding:5px 10px; border-radius:4px; font-size:0.8rem; font-weight:700; margin-bottom:15px; }
 
-        .nav-links a:hover, .nav-links a.active { color: var(--primary-maroon); }
+    .calendar-row { display:flex; background:white; border-radius:8px; overflow:hidden; box-shadow:var(--shadow); margin-bottom:20px; border-left:5px solid var(--accent-gold); transition:transform .2s; }
+    .calendar-row:hover { transform:translateX(5px); }
+    .date-box { background-color:var(--primary-maroon); color:white; padding:20px; display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:100px; text-align:center; }
+    .date-box .day { font-size:1.8rem; font-weight:700; line-height:1; }
+    .date-box .month { font-size:.9rem; text-transform:uppercase; letter-spacing:1px; }
+    .event-details { padding:25px; flex:1; display:flex; flex-direction:column; justify-content:center; }
+    .event-meta { color:var(--text-gray); font-size:.9rem; display:flex; gap:15px; align-items:center; }
 
-        .btn-nav {
-            background-color: var(--primary-maroon);
-            color: white !important;
-            padding: 10px 20px;
-            border-radius: 4px;
-            transition: background 0.3s;
-        }
-        
-        .btn-nav:hover { background-color: var(--primary-hover); }
+    .btn-outline { display:inline-block; border:1px solid var(--primary-maroon); color:var(--primary-maroon); padding:8px 20px; border-radius:4px; text-decoration:none; font-weight:600; font-size:.9rem; align-self:center; margin-right:25px; transition:all .3s; }
+    .btn-outline:hover { background-color:var(--primary-maroon); color:white; }
 
-        .hamburger { display: none; cursor: pointer; font-size: 1.5rem; }
+    .inquiry-section { background-color:#1c1917; color:white; }
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; max-width:800px; margin:0 auto; }
+    .form-group { margin-bottom:20px; }
+    .form-group.full { grid-column: span 2; }
+    .form-group label { display:block; margin-bottom:8px; font-size:.9rem; color:#d1d5db; }
+    .form-control { width:100%; padding:12px; background:#292524; border:1px solid #44403c; border-radius:4px; color:white; font-family:inherit; }
+    .form-control:focus { outline:none; border-color:var(--accent-gold); }
+    .btn-submit { background-color:var(--accent-gold); color:#4a3800; border:none; padding:15px 30px; width:100%; font-weight:700; cursor:pointer; border-radius:4px; transition:background .3s; }
+    .btn-submit:hover { background-color:var(--accent-gold-light); }
 
-        /* --- Events Hero --- */
-        .events-hero {
-            height: 60vh;
-            margin-top: 80px;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1519671482502-9759101d4561?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-        }
+    .error { color:#ffb4b4; font-size:0.85rem; margin-top:6px; }
 
-        .events-hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
-        }
+    footer { background-color:#000; color:#9CA3AF; padding:60px 0 20px; }
+    .footer-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:40px; margin-bottom:40px; }
+    .footer-col h4 { color:white; margin-bottom:20px; text-transform:uppercase; letter-spacing:1px; }
+    .footer-col ul { list-style:none; }
+    .footer-col ul li { margin-bottom:10px; }
+    .footer-col ul li a { color:#9CA3AF; text-decoration:none; transition:color .3s; }
+    .footer-col ul li a:hover { color:var(--accent-gold); }
 
-        .events-hero p {
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-            color: rgba(255,255,255,0.9);
-        }
+    @media (max-width:768px) {
+      .hamburger { display:block; }
+      .nav-links { display:none; }
+      .spaces-grid { grid-template-columns:1fr; }
+      .form-grid { grid-template-columns:1fr; }
+      .form-group.full { grid-column: span 1; }
+      .calendar-row { flex-direction:column; }
+      .date-box { flex-direction:row; gap:10px; padding:10px; width:100%; }
+      .btn-outline { margin:0 0 20px 25px; align-self:flex-start; }
+    }
 
-        /* --- Section Styling --- */
-        section { padding: 80px 0; }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        .section-subtitle {
-            color: var(--primary-maroon);
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            display: block;
-            margin-bottom: 10px;
-        }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--text-dark);
-        }
-
-        /* --- Event Spaces Grid --- */
-        .spaces-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-        }
-
-        .space-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s;
-        }
-
-        .space-card:hover { transform: translateY(-5px); }
-
-        .space-img {
-            height: 250px;
-            width: 100%;
-            object-fit: cover;
-        }
-
-        .space-content { padding: 30px; }
-        
-        .space-content h3 {
-            font-size: 1.5rem;
-            color: var(--text-dark);
-            margin-bottom: 10px;
-        }
-
-        .capacity-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            background-color: #FEF3C7;
-            color: #92400E;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-
-        /* --- Upcoming Calendar --- */
-        .calendar-row {
-            display: flex;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            margin-bottom: 20px;
-            border-left: 5px solid var(--accent-gold);
-            transition: transform 0.2s;
-        }
-
-        .calendar-row:hover { transform: translateX(5px); }
-
-        .date-box {
-            background-color: var(--primary-maroon);
-            color: white;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-width: 100px;
-            text-align: center;
-        }
-
-        .date-box .day { font-size: 1.8rem; font-weight: 700; line-height: 1; }
-        .date-box .month { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
-
-        .event-details {
-            padding: 25px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .event-details h3 { font-size: 1.3rem; margin-bottom: 5px; }
-        .event-meta { color: var(--text-gray); font-size: 0.9rem; display: flex; gap: 15px; align-items: center; }
-
-        .btn-outline {
-            display: inline-block;
-            border: 1px solid var(--primary-maroon);
-            color: var(--primary-maroon);
-            padding: 8px 20px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            align-self: center;
-            margin-right: 25px;
-            transition: all 0.3s;
-        }
-
-        .btn-outline:hover {
-            background-color: var(--primary-maroon);
-            color: white;
-        }
-
-        /* --- Inquiry Form --- */
-        .inquiry-section {
-            background-color: #1c1917;
-            color: white;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .form-group { margin-bottom: 20px; }
-        .form-group.full { grid-column: span 2; }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-            color: #d1d5db;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px;
-            background: #292524;
-            border: 1px solid #44403c;
-            border-radius: 4px;
-            color: white;
-            font-family: inherit;
-        }
-
-        .form-control:focus { outline: none; border-color: var(--accent-gold); }
-
-        .btn-submit {
-            background-color: var(--accent-gold);
-            color: #4a3800;
-            border: none;
-            padding: 15px 30px;
-            width: 100%;
-            font-weight: 700;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: background 0.3s;
-        }
-
-        .btn-submit:hover { background-color: var(--accent-gold-light); }
-
-        /* --- Footer --- */
-        footer {
-            background-color: #000;
-            color: #9CA3AF;
-            padding: 60px 0 20px;
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        .footer-col h4 { color: white; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 10px; }
-        .footer-col ul li a { color: #9CA3AF; text-decoration: none; transition: color 0.3s; }
-        .footer-col ul li a:hover { color: var(--accent-gold); }
-
-        @media (max-width: 768px) {
-            .hamburger { display: block; }
-            .nav-links { display: none; }
-            .spaces-grid { grid-template-columns: 1fr; }
-            .form-grid { grid-template-columns: 1fr; }
-            .form-group.full { grid-column: span 1; }
-            .calendar-row { flex-direction: column; }
-            .date-box { flex-direction: row; gap: 10px; padding: 10px; width: 100%; }
-            .btn-outline { margin: 0 0 20px 25px; align-self: flex-start; }
-        }
-.logo-img {
-    width: 100px;      /* adjust size */
-    height: 90px;     /* keep square */
-    object-fit: cover;
-    margin-right: 1px;
-}
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-    </style>
+    .logo-img { width:100px; height:90px; object-fit:cover; margin-right:1px; }
+    .logo { display:flex; align-items:center; gap:8px; }
+  </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header>
-        <div class="container nav-container">
-            <a href="index.html" class="logo">
-                <img src="IMG_4649.PNG" alt="Logo" class="logo-img">
-                GAURAV GARDEN
-            </a>
-            <div class="hamburger"><i data-lucide="menu"></i></div>
-            <nav class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="menu.html">Menu</a>
-                <a href="events.html" class="active">Events</a>
-                <a href="gallery.html">Gallery</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-                <a href="reservations.html" class="btn-nav">Book Table</a>
-            </nav>
+  <!-- Header -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <img src="IMG_4649.PNG" alt="Logo" class="logo-img">
+        GAURAV GARDEN
+      </a>
+      <div class="hamburger"><i data-lucide="menu"></i></div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="menu.html">Menu</a>
+        <a href="events.html" class="active">Events</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="reservations.html" class="btn-nav">Book Table</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Events Hero -->
+  <section class="events-hero">
+    <div class="container">
+      <h1 class="serif">Private Dining & Events</h1>
+      <p>From intimate gatherings to grand celebrations, create unforgettable memories in our exquisite venues.</p>
+    </div>
+  </section>
+
+  <!-- Event Spaces -->
+  <section>
+    <div class="container">
+      <div class="section-title">
+        <span class="section-subtitle">Our Venues</span>
+        <h2>Perfect Spaces for Every Occasion</h2>
+      </div>
+
+      <div class="spaces-grid">
+        <!-- Space 1 -->
+        <div class="space-card">
+          <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Private Room" class="space-img">
+          <div class="space-content">
+            <h3>The Wine Cellar</h3>
+            <div class="capacity-badge">
+              <i data-lucide="users" size="14"></i> Up to 20 Guests
+            </div>
+            <p style="color:var(--text-gray)">An intimate setting surrounded by our vintage collection. Perfect for business meetings or family dinners.</p>
+          </div>
         </div>
-    </header>
 
-    <!-- Events Hero -->
-    <section class="events-hero">
-        <div class="container">
-            <h1 class="serif">Private Dining & Events</h1>
-            <p>From intimate gatherings to grand celebrations, create unforgettable memories in our exquisite venues.</p>
+        <!-- Space 2 -->
+        <div class="space-card">
+          <img src="https://images.unsplash.com/photo-1519671482502-9759101d4561?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Garden" class="space-img">
+          <div class="space-content">
+            <h3>The Garden Terrace</h3>
+            <div class="capacity-badge">
+              <i data-lucide="users" size="14"></i> Up to 60 Guests
+            </div>
+            <p style="color:var(--text-gray)">Open-air elegance overlooking the city lights. Ideal for cocktail parties and summer receptions.</p>
+          </div>
         </div>
-    </section>
 
-    <!-- Event Spaces -->
-    <section>
-        <div class="container">
-            <div class="section-title">
-                <span class="section-subtitle">Our Venues</span>
-                <h2>Perfect Spaces for Every Occasion</h2>
+        <!-- Space 3 -->
+        <div class="space-card">
+          <img src="https://images.unsplash.com/photo-1519225421980-715cb0202128?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Main Hall" class="space-img">
+          <div class="space-content">
+            <h3>The Grand Banquet</h3>
+            <div class="capacity-badge">
+              <i data-lucide="users" size="14"></i> Up to 150 Guests
             </div>
-
-            <div class="spaces-grid">
-                <!-- Space 1 -->
-                <div class="space-card">
-                    <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Private Room" class="space-img">
-                    <div class="space-content">
-                        <h3>The Wine Cellar</h3>
-                        <div class="capacity-badge">
-                            <i data-lucide="users" size="14"></i> Up to 20 Guests
-                        </div>
-                        <p style="color: var(--text-gray);">An intimate setting surrounded by our vintage collection. Perfect for business meetings or family dinners.</p>
-                    </div>
-                </div>
-
-                <!-- Space 2 -->
-                <div class="space-card">
-                    <img src="https://images.unsplash.com/photo-1519671482502-9759101d4561?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Garden" class="space-img">
-                    <div class="space-content">
-                        <h3>The Garden Terrace</h3>
-                        <div class="capacity-badge">
-                            <i data-lucide="users" size="14"></i> Up to 60 Guests
-                        </div>
-                        <p style="color: var(--text-gray);">Open-air elegance overlooking the city lights. Ideal for cocktail parties and summer receptions.</p>
-                    </div>
-                </div>
-
-                <!-- Space 3 -->
-                <div class="space-card">
-                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0202128?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Main Hall" class="space-img">
-                    <div class="space-content">
-                        <h3>The Grand Banquet</h3>
-                        <div class="capacity-badge">
-                            <i data-lucide="users" size="14"></i> Up to 150 Guests
-                        </div>
-                        <p style="color: var(--text-gray);">Our spacious main hall featuring crystal chandeliers and a dedicated stage for live entertainment.</p>
-                    </div>
-                </div>
-            </div>
+            <p style="color:var(--text-gray)">Our spacious main hall featuring crystal chandeliers and a dedicated stage for live entertainment.</p>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Upcoming Events -->
-    <section style="background-color: var(--bg-light);">
-        <div class="container">
-            <div class="section-title">
-                <span class="section-subtitle">Mark Your Calendar</span>
-                <h2>Upcoming Special Events</h2>
-            </div>
+  <!-- Upcoming Events -->
+  <section style="background-color:var(--bg-light);">
+    <div class="container">
+      <div class="section-title">
+        <span class="section-subtitle">Mark Your Calendar</span>
+        <h2>Upcoming Special Events</h2>
+      </div>
 
-            <div class="calendar-row">
-                <div class="date-box">
-                    <span class="day">15</span>
-                    <span class="month">Dec</span>
-                </div>
-                <div class="event-details">
-                    <h3>Winter Jazz Night</h3>
-                    <div class="event-meta">
-                        <span><i data-lucide="clock" size="14"></i> 7:00 PM</span>
-                        <span><i data-lucide="map-pin" size="14"></i> Main Hall</span>
-                    </div>
-                    <p style="margin-top: 10px; color: var(--text-gray);">Live performance by The Blue Note Trio accompanied by a 3-course dinner.</p>
-                </div>
-                <a href="#" class="btn-outline">Reserve Seat</a>
-            </div>
-
-            <div class="calendar-row">
-                <div class="date-box">
-                    <span class="day">24</span>
-                    <span class="month">Dec</span>
-                </div>
-                <div class="event-details">
-                    <h3>Christmas Eve Gala</h3>
-                    <div class="event-meta">
-                        <span><i data-lucide="clock" size="14"></i> 6:00 PM</span>
-                        <span><i data-lucide="map-pin" size="14"></i> Entire Venue</span>
-                    </div>
-                    <p style="margin-top: 10px; color: var(--text-gray);">A magical evening featuring our seasonal tasting menu, wine pairing, and carols.</p>
-                </div>
-                <a href="#" class="btn-outline">Reserve Seat</a>
-            </div>
-
-            <div class="calendar-row">
-                <div class="date-box">
-                    <span class="day">31</span>
-                    <span class="month">Dec</span>
-                </div>
-                <div class="event-details">
-                    <h3>New Year's Masquerade</h3>
-                    <div class="event-meta">
-                        <span><i data-lucide="clock" size="14"></i> 8:00 PM</span>
-                        <span><i data-lucide="map-pin" size="14"></i> Grand Banquet</span>
-                    </div>
-                    <p style="margin-top: 10px; color: var(--text-gray);">Welcome the new year in style with champagne, dancing, and a midnight countdown.</p>
-                </div>
-                <a href="#" class="btn-outline">Reserve Seat</a>
-            </div>
+      <div class="calendar-row">
+        <div class="date-box">
+          <span class="day">15</span>
+          <span class="month">Dec</span>
         </div>
-    </section>
-
-    <!-- Inquiry Form -->
-    <section class="inquiry-section">
-        <div class="container">
-            <div class="section-title">
-                <span class="section-subtitle" style="color: var(--accent-gold);">Plan Your Event</span>
-                <h2 style="color: white;">Inquire About Hosting</h2>
-                <p style="color: #9ca3af; max-width: 600px; margin: 10px auto;">Tell us about your upcoming event, and our dedicated events manager will contact you within 24 hours.</p>
-            </div>
-
-            <form class="form-grid" onsubmit="event.preventDefault(); alert('Inquiry Sent! We will contact you shortly.');">
-                <div class="form-group">
-                    <label>First Name</label>
-                    <input type="text" class="form-control" placeholder="John">
-                </div>
-                <div class="form-group">
-                    <label>Last Name</label>
-                    <input type="text" class="form-control" placeholder="Doe">
-                </div>
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" class="form-control" placeholder="john@example.com">
-                </div>
-                <div class="form-group">
-                    <label>Phone Number</label>
-                    <input type="tel" class="form-control" placeholder="+1 (555) 000-0000">
-                </div>
-                <div class="form-group">
-                    <label>Event Type</label>
-                    <select class="form-control">
-                        <option>Wedding Reception</option>
-                        <option>Corporate Event</option>
-                        <option>Birthday Party</option>
-                        <option>Private Dinner</option>
-                        <option>Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Expected Guests</label>
-                    <input type="number" class="form-control" placeholder="e.g. 50">
-                </div>
-                <div class="form-group full">
-                    <label>Additional Details</label>
-                    <textarea class="form-control" rows="4" placeholder="Tell us about your preferences, dates, and special requirements..."></textarea>
-                </div>
-                <div class="form-group full">
-                    <button type="submit" class="btn-submit">SEND INQUIRY</button>
-                </div>
-            </form>
+        <div class="event-details">
+          <h3>Winter Jazz Night</h3>
+          <div class="event-meta">
+            <span><i data-lucide="clock" size="14"></i> 7:00 PM</span>
+            <span><i data-lucide="map-pin" size="14"></i> Main Hall</span>
+          </div>
+          <p style="margin-top:10px; color:var(--text-gray)">Live performance by The Blue Note Trio accompanied by a 3-course dinner.</p>
         </div>
-    </section>
+        <!-- updated link -->
+        <a href="reservations.html" class="btn-outline">Book Table</a>
+      </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <div class="logo" style="margin-bottom: 20px; color: white;">
-                        <i data-lucide="flower-2"></i> GAURAO GARDEN
-                    </div>
-                    <p>The best dining experience for you and your family. We serve love on a plate with memories.</p>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About </a></li>
-                        <li><a href="menu.html">Menu</a></li>
-                        <li><a href="events.html">Events</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li><a href="gallery.html">Gallery</a></li>
-                        <li><a href="reservations.html">Book Table</a></li>
-
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h4>Contact Us</h4>
-                    <ul>
-                        <li><i data-lucide="map-pin" size="14" style="color: var(--accent-gold);"></i> 123 Culinary St, Taste City</li>
-                        <li><i data-lucide="phone" size="14" style="color: var(--accent-gold);"></i> +91 8492637362</li>
-                        <li><i data-lucide="mail" size="14" style="color: var(--accent-gold);"></i> info@gauraogarden.com</li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h4>Opening Hours</h4>
-                    <ul>
-                        <li style="display: flex; justify-content: space-between;"><span>Mon - Fri:</span> <span style="color: white;">09:00 - 22:00</span></li>
-                        <li style="display: flex; justify-content: space-between;"><span>Sat - Sun:</span> <span style="color: white;">10:00 - 23:00</span></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div style="text-align: center; border-top: 1px solid #333; padding-top: 20px; font-size: 0.8rem;">
-                &copy; 2025 Gaurav Garden. All Rights Reserved.
-            </div>
+      <div class="calendar-row">
+        <div class="date-box">
+          <span class="day">24</span>
+          <span class="month">Dec</span>
         </div>
-    </footer>
+        <div class="event-details">
+          <h3>Christmas Eve Gala</h3>
+          <div class="event-meta">
+            <span><i data-lucide="clock" size="14"></i> 6:00 PM</span>
+            <span><i data-lucide="map-pin" size="14"></i> Entire Venue</span>
+          </div>
+          <p style="margin-top:10px; color:var(--text-gray)">A magical evening featuring our seasonal tasting menu, wine pairing, and carols.</p>
+        </div>
+        <!-- updated link -->
+        <a href="reservations.html" class="btn-outline">Book Table</a>
+      </div>
 
-    <script>
-        lucide.createIcons();
-        
-        // Hamburger Menu Toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.nav-links');
-        
-        if(hamburger) {
-            hamburger.addEventListener('click', () => {
-                const isHidden = navLinks.style.display === 'none' || navLinks.style.display === '';
-                navLinks.style.display = isHidden ? 'flex' : 'none';
-                if(isHidden) {
-                    navLinks.style.flexDirection = 'column';
-                    navLinks.style.position = 'absolute';
-                    navLinks.style.top = '80px';
-                    navLinks.style.left = '0';
-                    navLinks.style.width = '100%';
-                    navLinks.style.background = 'white';
-                    navLinks.style.padding = '20px';
-                    navLinks.style.boxShadow = '0 5px 5px rgba(0,0,0,0.1)';
-                }
-            });
+      <div class="calendar-row">
+        <div class="date-box">
+          <span class="day">31</span>
+          <span class="month">Dec</span>
+        </div>
+        <div class="event-details">
+          <h3>New Year's Masquerade</h3>
+          <div class="event-meta">
+            <span><i data-lucide="clock" size="14"></i> 8:00 PM</span>
+            <span><i data-lucide="map-pin" size="14"></i> Grand Banquet</span>
+          </div>
+          <p style="margin-top:10px; color:var(--text-gray)">Welcome the new year in style with champagne, dancing, and a midnight countdown.</p>
+        </div>
+        <!-- updated link -->
+        <a href="reservations.html" class="btn-outline">Book Table</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inquiry Form (WhatsApp) -->
+  <section class="inquiry-section">
+    <div class="container">
+      <div class="section-title">
+        <span class="section-subtitle" style="color:var(--accent-gold);">Plan Your Event</span>
+        <h2 style="color:white;">Inquire About Hosting</h2>
+        <p style="color:#9ca3af; max-width:600px; margin:10px auto;">Tell us about your upcoming event and we'll open WhatsApp with a prefilled message to send directly to our events manager.</p>
+      </div>
+
+      <form class="form-grid" onsubmit="sendWhatsApp(event)" novalidate>
+        <div class="form-group">
+          <label>First Name</label>
+          <input id="firstName" type="text" class="form-control" placeholder="John" required>
+        </div>
+
+        <div class="form-group">
+          <label>Last Name</label>
+          <input id="lastName" type="text" class="form-control" placeholder="Doe">
+        </div>
+
+        <!-- Email removed as requested -->
+
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input id="phone" type="tel" class="form-control" placeholder="+91 98765 43210" required>
+          <div id="phoneError" class="error" style="display:none;">Please enter a valid Indian mobile number (10 digits, starts with 6-9; +91 optional).</div>
+        </div>
+
+        <div class="form-group">
+          <label>Event Type</label>
+          <select id="eventType" class="form-control">
+            <option>Wedding Reception</option>
+            <option>Corporate Event</option>
+            <option>Birthday Party</option>
+            <option>Private Dinner</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Expected Guests</label>
+          <input id="guests" type="number" class="form-control" placeholder="e.g. 50" min="1">
+        </div>
+
+        <!-- New: Date & Time inputs -->
+        <div class="form-group">
+          <label>Preferred Date</label>
+          <input id="eventDate" type="date" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label>Preferred Time</label>
+          <input id="eventTime" type="time" class="form-control">
+        </div>
+
+        <div class="form-group full">
+          <label>Additional Details</label>
+          <textarea id="details" class="form-control" rows="4" placeholder="Tell us about your preferred dates, menu, or special requirements..."></textarea>
+        </div>
+
+        <div class="form-group full">
+          <button type="submit" class="btn-submit">SEND VIA WHATSAPP</button>
+        </div>
+
+        <div class="form-group full" style="text-align:center; color:#9ca3af; font-size:0.9rem;">
+          We will open WhatsApp (Web or App) with a pre-filled message — just press Send.
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo" style="margin-bottom:20px; color:white;">
+            <i data-lucide="flower-2"></i> GAURAO GARDEN
+          </div>
+          <p>The best dining experience for you and your family. We serve love on a plate with memories.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About </a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="reservations.html">Book Table</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <ul>
+            <li><i data-lucide="map-pin" size="14" style="color:var(--accent-gold)"></i> 123 Culinary St, Taste City</li>
+            <li><i data-lucide="phone" size="14" style="color:var(--accent-gold)"></i> +91 8492637362</li>
+            <li><i data-lucide="mail" size="14" style="color:var(--accent-gold)"></i> info@gauraogarden.com</li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Opening Hours</h4>
+          <ul>
+            <li style="display:flex; justify-content:space-between;"><span>Mon - Fri:</span> <span style="color:white;">09:00 - 22:00</span></li>
+            <li style="display:flex; justify-content:space-between;"><span>Sat - Sun:</span> <span style="color:white;">10:00 - 23:00</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="margin-top:10px; font-size:0.9rem; color:#aaa; text-align:center;">
+        Crafted with ❤ by <span style="color:#D4AF37; font-weight:700;">Snehal Khodade</span>
+      </div>
+
+      <div style="text-align:center; border-top:1px solid #333; padding-top:20px; font-size:0.8rem;">
+        &copy; 2025 Gaurav Garden. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    // Hamburger Menu Toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        const isHidden = navLinks.style.display === 'none' || navLinks.style.display === '';
+        navLinks.style.display = isHidden ? 'flex' : 'none';
+        if (isHidden) {
+          navLinks.style.flexDirection = 'column';
+          navLinks.style.position = 'absolute';
+          navLinks.style.top = '80px';
+          navLinks.style.left = '0';
+          navLinks.style.width = '100%';
+          navLinks.style.background = 'white';
+          navLinks.style.padding = '20px';
+          navLinks.style.boxShadow = '0 5px 5px rgba(0,0,0,0.1)';
         }
-    </script>
+      });
+    }
+
+    // PHONE VALIDATION: Indian numbers
+    // Accepts formats like:
+    // 9876543210, +919876543210, 919876543210, 09876543210, spaces/dashes allowed
+    function normalizeDigits(s) {
+      return (s || '').replace(/\D/g, '');
+    }
+
+    function isValidIndianMobile(raw) {
+      const digits = normalizeDigits(raw);
+      // allow leading 0, 91, or nothing
+      if (digits.length === 10) {
+        return /^[6-9]\d{9}$/.test(digits);
+      }
+      if (digits.length === 11 && digits.startsWith('0')) {
+        return /^[6-9]\d{9}$/.test(digits.slice(1));
+      }
+      if (digits.length === 12 && digits.startsWith('91')) {
+        return /^[6-9]\d{9}$/.test(digits.slice(2));
+      }
+      return false;
+    }
+
+    function formatDateReadable(isoDate) {
+      if (!isoDate) return '';
+      const d = new Date(isoDate + 'T00:00:00'); // avoid timezone shift
+      if (isNaN(d)) return isoDate;
+      const options = { year: 'numeric', month: 'short', day: 'numeric' };
+      return d.toLocaleDateString('en-GB', options); // e.g. 15 Dec 2025
+    }
+
+    function formatTimeReadable(timeValue) {
+      if (!timeValue) return '';
+      // timeValue is "HH:MM"
+      const [h, m] = timeValue.split(':').map(Number);
+      if (Number.isNaN(h) || Number.isNaN(m)) return timeValue;
+      // produce e.g. 07:30 PM
+      const hour12 = ((h + 11) % 12) + 1;
+      const ampm = h >= 12 ? 'PM' : 'AM';
+      return `${String(hour12).padStart(2,'0')}:${String(m).padStart(2,'0')} ${ampm}`;
+    }
+
+    function sendWhatsApp(event) {
+      event.preventDefault();
+
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const eventType = document.getElementById('eventType').value;
+      const guests = document.getElementById('guests').value.trim();
+      const details = document.getElementById('details').value.trim();
+      const date = document.getElementById('eventDate').value; // yyyy-mm-dd
+      const time = document.getElementById('eventTime').value; // HH:MM
+
+      const phoneErrorEl = document.getElementById('phoneError');
+      phoneErrorEl.style.display = 'none';
+
+      if (!firstName) {
+        alert('Please enter your first name.');
+        return;
+      }
+      if (!phone) {
+        alert('Please enter your phone number.');
+        return;
+      }
+
+      if (!isValidIndianMobile(phone)) {
+        phoneErrorEl.style.display = 'block';
+        return;
+      }
+
+      // business number for WhatsApp (international, no +)
+      const businessNumber = '918492637362'; // +91 8492637362
+
+      // Build plain message then encode whole message
+      let msg = `Hello Gaurav Garden 👋\n\nMy name is ${firstName}${lastName ? ' ' + lastName : ''}.\n`;
+      msg += `Phone: ${phone}\n`;
+      msg += `Event Type: ${eventType}\n`;
+      if (guests) msg += `Expected Guests: ${guests}\n`;
+      if (date) {
+        msg += `Preferred Date: ${formatDateReadable(date)}\n`;
+      }
+      if (time) {
+        msg += `Preferred Time: ${formatTimeReadable(time)}\n`;
+      }
+      if (details) msg += `\nDetails: ${details}\n`;
+      msg += `\nI'd like to inquire about hosting my event.`;
+
+      const waUrl = `https://wa.me/${businessNumber}?text=${encodeURIComponent(msg)}`;
+
+      // open in new tab
+      window.open(waUrl, '_blank');
+    }
+  </script>
 </body>
 </html>
-
