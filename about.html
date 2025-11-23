@@ -95,10 +95,13 @@
 
         /* --- About Hero --- */
         .about-hero {
-            height: 100vh;
-            margin-top: 0;
+            height: 60vh;
+            margin-top: 80px;
             background-color: #111; /* fallback while image loads */
-            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/IMG_5704.PNG');
+            background-image: linear-gradient(
+                rgba(0,0,0,0.6),
+                rgba(0,0,0,0.6)
+            ), url('images/IMG_5704.PNG');
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
@@ -107,8 +110,26 @@
             justify-content: center;
             text-align: center;
             color: white;
-            padding-top: 80px; /* Offset fixed header */
         }
+
+
+.about-hero {
+    height: 60vh;
+    margin-top: 80px;
+    background-color: #111; /* fallback while image loads */
+    background-image: linear-gradient(
+        rgba(0,0,0,0.6),
+        rgba(0,0,0,0.6)
+    ), url('images/IMG_5704.PNG');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
 
         .about-hero h1 {
             font-size: 3.5rem;
@@ -282,7 +303,7 @@
     <header>
         <div class="container nav-container">
             <a href="index.html" class="logo">
-                <img src="images/IMG_4649.PNG" alt="Logo" class="logo-img">
+                <img src="IMG_4649.PNG" alt="Logo" class="logo-img">
                 GAURAV GARDEN
             </a>
             <div class="hamburger"><i data-lucide="menu"></i></div>
@@ -294,6 +315,8 @@
                 <a href="about.html" class="active">About</a>
                 <a href="contact.html">Contact</a>
                 <a href="reservations.html" class="btn-nav">Book Table</a>
+
+                    
             </nav>
         </div>
     </header>
@@ -412,7 +435,7 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <div class="logo" style="margin-bottom: 20px; color: white;">
-                        <i data-lucide="flower-2"></i> GAURAV GARDEN
+                        <i data-lucide="flower-2"></i> GAURAO GARDEN
                     </div>
                     <p>The best dining experience for you and your family. We serve love on a plate with memories.</p>
                 </div>
@@ -479,5 +502,4 @@
         }
     </script>
 </body>
-
 </html>
