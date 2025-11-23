@@ -453,17 +453,17 @@
             .lightbox-img { max-width: 100%; }
             .ai-chat-window { width: 90%; right: 5%; bottom: 100px; }
         }
-.logo-img {
-    width: 100px;      /* adjust size */
-    height: 90px;     /* keep square */
-    object-fit: cover;
-    margin-right: 1px;
-}
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
+        .logo-img {
+            width: 100px;      /* adjust size */
+            height: 90px;     /* keep square */
+            object-fit: cover;
+            margin-right: 1px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
     </style>
 </head>
@@ -586,7 +586,7 @@
             </button>
             <img src="" alt="Full View" class="lightbox-img" id="lightbox-img">
 
-            <!-- Gemini Integration: Sommelier Button -->
+            <!-- Sommelier Button -->
             <button class="ai-pairing-btn" id="ai-pairing-btn" style="display: none;" aria-live="polite">
                 <i data-lucide="sparkles"></i> Ask AI Sommelier for Pairing
             </button>
@@ -632,25 +632,24 @@
                     <p>The best dining experience for you and your family. We serve love on a plate with memories.</p>
                 </div>
 
-        <div class="container nav-container">
-            <a href="index.html" class="logo"><i data-lucide="flower-2"></i> GAURAO GARDEN</a>
-            <div class="hamburger"><i data-lucide="menu"></i></div>
-            <nav class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="menu.html">Menu</a>
-                <a href="events.html" class="active">Events</a>
-                <a href="gallery.html">Gallery</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-                <a href="reservations.html" class="btn-nav">Book Table</a>
-            </nav>
-        </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="reservations.html">Book Table</a></li>
+                    </ul>
+                </div>
 
                 <div class="footer-col">
                     <h4>Contact Us</h4>
                     <ul>
                         <li><i data-lucide="map-pin" size="14" style="color: var(--accent-gold);"></i> 123 Culinary St, Taste City</li>
-                        <li><i data-lucide="phone" size="14" style="color: var(--accent-gold);"></i> +1 (555) 123-4567</li>
+                        <li><i data-lucide="phone" size="14" style="color: var(--accent-gold);"></i> +91 8055000110</li>
                         <li><i data-lucide="mail" size="14" style="color: var(--accent-gold);"></i> info@gauraogarden.com</li>
                     </ul>
                 </div>
@@ -662,6 +661,10 @@
                         <li style="display: flex; justify-content: space-between;"><span>Sat - Sun:</span> <span style="color: white;">10:00 - 23:00</span></li>
                     </ul>
                 </div>
+            </div>
+
+            <div style="margin-top:10px; font-size:0.9rem; color:#aaa; text-align:center;">
+                Crafted with ❤ by <span style="color:#D4AF37; font-weight:700;">Snehal Khodade</span>
             </div>
 
             <div style="text-align: center; border-top: 1px solid #333; padding-top: 20px; font-size: 0.8rem;">
@@ -776,10 +779,7 @@ Please act as a Michelin-star sommelier.
 2. Recommend one Red and one White wine pairing that complements it perfectly.
 Keep it concise (max 100 words).`;
 
-                    // If you want to test locally without calling the real API, uncomment the stub below:
-                    // const text = "Likely: creamy texture, buttery and with citrus brightness. Red: Pinot Noir. White: Chardonnay.";
-
-                    const text = await callGeminiAPI(prompt); // will throw if apiKey is empty / invalid
+                    const text = await callGeminiAPI(prompt); // will return demo stub if apiKey is empty
                     aiResultText.innerHTML = marked.parse(text);
                     aiResultBox.style.display = 'block';
                     aiPairingBtn.innerHTML = '<i data-lucide="check"></i> Pairing Generated';
@@ -788,7 +788,6 @@ Keep it concise (max 100 words).`;
                     console.error(err);
                     aiPairingBtn.innerHTML = 'Error. Try Again.';
                     aiPairingBtn.disabled = false;
-                    // keep icons consistent
                     lucide.createIcons();
                 }
             });
@@ -797,7 +796,6 @@ Keep it concise (max 100 words).`;
             const addMessage = (text, sender) => {
                 const div = document.createElement('div');
                 div.className = `message ${sender}`;
-                // Use marked for small markdown support
                 div.innerHTML = marked.parse(text);
                 messagesContainer.appendChild(div);
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -831,7 +829,7 @@ Be elegant, welcoming, and concise.`;
                     addMessage(responseText, 'ai');
                 } catch (error) {
                     typingIndicator.style.display = 'none';
-                    addMessage("I apologize, I'm having trouble connecting to the reservation system right now. Please try again.", 'ai');
+                    addMessage("I apologize, I'm having trouble connecting to the service right now. Please try again.", 'ai');
                     console.error(error);
                 }
             };
@@ -887,7 +885,12 @@ Be elegant, welcoming, and concise.`;
             // Use a server-side proxy or backend to keep secrets safe.
             if (!apiKey) {
                 // for safety/fallback: return a helpful stub so UI doesn't break during local dev
-                return `**(Demo response)**\n\nLikely flavor profile: rich, creamy texture with bright citrus notes and mild umami.\n\n**Red:** Pinot Noir — light-bodied with red fruit and subtle earth that won't overpower.\n**White:** Chardonnay (unoaked or lightly oaked) — gives a buttery roundness and crisp finish.`;
+                return `**(Demo response)**
+
+Likely flavor profile: rich, creamy texture with bright citrus notes and mild umami.
+
+**Red:** Pinot Noir — light-bodied with red fruit and subtle earth that won't overpower.
+**White:** Chardonnay (unoaked or lightly oaked) — gives a buttery roundness and crisp finish.`;
             }
 
             const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
@@ -899,7 +902,6 @@ Be elegant, welcoming, and concise.`;
                 }]
             };
 
-            // keep headers minimal and standard
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
@@ -914,15 +916,12 @@ Be elegant, welcoming, and concise.`;
 
             const data = await response.json();
 
-            // safe access with fallback
-            // The exact response shape might differ by API version; adapt as necessary.
             if (data?.candidates?.[0]?.content?.[0]?.text) {
                 return data.candidates[0].content[0].text;
             }
             if (data?.candidates?.[0]?.content?.parts?.[0]?.text) {
                 return data.candidates[0].content.parts[0].text;
             }
-            // fallback: stringify a helpful message
             return JSON.stringify(data, null, 2);
         }
     </script>
