@@ -66,6 +66,29 @@
 
     .hamburger { display: none; cursor:pointer; font-size:20px; }
 
+    /* Cart button in header */
+    .cart-wrap { display:flex; gap:10px; align-items:center; }
+    .cart-btn {
+      background: linear-gradient(90deg,var(--primary-maroon),var(--primary-hover));
+      color: white;
+      padding:10px 14px;
+      border-radius:8px;
+      border: none;
+      cursor:pointer;
+      display:flex;
+      gap:8px;
+      align-items:center;
+      font-weight:700;
+    }
+    .cart-count {
+      background:var(--white);
+      color:var(--primary-maroon);
+      padding:4px 8px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:0.9rem;
+    }
+
     /* Hero */
     .menu-hero {
       margin-top: 80px;
@@ -125,8 +148,33 @@
     .card-tags { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
     .tag { background:#f3f4f6; color:#4b5563; font-size:0.75rem; padding:4px 8px; border-radius:4px; border:1px solid #e5e7eb; }
 
-    .btn-add-cart { width:100%; background:var(--primary-maroon); color:white; border:none; padding:12px; border-radius:8px; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; }
-    .btn-add-cart:hover { background:var(--primary-hover); }
+    .card-qty-row { display:flex; gap:10px; align-items:center; margin-bottom:12px; }
+    .qty-input-card { width:90px; padding:8px 10px; border:1px solid #e5e5e5; border-radius:8px; font-size:1rem; text-align:center; }
+
+    .btn-add-cart { width:100%; background:linear-gradient(90deg,var(--primary-maroon),var(--primary-hover)); color:white; border:none; padding:12px; border-radius:8px; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; }
+    .btn-add-cart:hover { opacity:0.95; transform:translateY(-2px); }
+
+    /* Cart modal (maroon/gold theme) */
+    .cart-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; z-index:2200; }
+    .cart-modal { width:100%; max-width:780px; background:linear-gradient(180deg,#fff,#fff); border-radius:12px; overflow:hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.35); }
+    .cart-header { background: linear-gradient(90deg,var(--primary-maroon),var(--primary-hover)); color:white; padding:16px 20px; display:flex; justify-content:space-between; align-items:center; }
+    .cart-body { padding:18px; max-height:70vh; overflow:auto; }
+    .cart-item { display:flex; gap:12px; align-items:center; padding:12px 0; border-bottom:1px solid #f3f3f3; }
+    .cart-item:last-child { border-bottom: none; }
+    .cart-item .left { width:64px; height:54px; background:#f6f1e0; border-radius:8px; display:flex; align-items:center; justify-content:center; color:var(--primary-maroon); font-weight:800; }
+    .cart-item .meta { flex:1; }
+    .cart-item .meta .name { font-weight:700; color:var(--text-dark); }
+    .cart-item .meta .price { color:var(--accent-gold); font-weight:700; }
+    .cart-controls { display:flex; gap:8px; align-items:center; }
+    .cart-controls input { width:72px; padding:8px; border-radius:8px; border:1px solid #e6e6e6; text-align:center; }
+    .cart-remove { background:#fee2e2; color:#b91c1c; border-radius:8px; border:none; padding:8px 10px; cursor:pointer; }
+
+    .cart-footer { padding:16px; background:#fff8e6; display:flex; flex-direction:column; gap:12px; }
+    .total-row { display:flex; justify-content:space-between; font-weight:800; font-size:1.08rem; color:var(--text-dark); }
+    .cust-input { width:100%; padding:10px; border-radius:8px; border:1px solid #e6e6e6; }
+    .cart-actions { display:flex; gap:10px; justify-content:flex-end; }
+    .btn-clear { background:#fff; border:1px solid #e5e5e5; padding:10px 14px; border-radius:8px; cursor:pointer; }
+    .btn-send { background: #25D366; color:white; padding:10px 14px; border-radius:8px; border:none; cursor:pointer; font-weight:800; }
 
     /* Download / footer */
     .download-banner { background:#FEF3C7; text-align:center; padding:60px 20px; margin-top:50px; }
@@ -141,20 +189,16 @@
       .nav-links { display:none; }
       .menu-hero h1 { font-size:2rem; }
       .feature-content { padding:24px; }
+      .cart-modal { max-width:94vw; }
     }
-.logo-img {
-    width: 100px;      /* adjust size */
-    height: 90px;     /* keep square */
-    object-fit: cover;
-    margin-right: 1px;
-}
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
 
-/* --- Modal styles will be injected by script for cleanliness --- */
+    .logo-img {
+        width: 100px;
+        height: 90px;
+        object-fit: cover;
+        margin-right: 1px;
+    }
+    .logo { display: flex; align-items: center; gap: 8px; }
 
   </style>
 </head>
@@ -163,23 +207,30 @@
   <!-- Header -->
   <header>
     <div class="container nav-container">
-            <a href="index.html" class="logo">
-                <img src="IMG_4649.PNG" alt="Logo" class="logo-img">
-                GAURAV GARDEN
-            </a>
+      <a href="index.html" class="logo">
+        <img src="IMG_4649.PNG" alt="Logo" class="logo-img">
+        GAURAV GARDEN
+      </a>
 
-      <div class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <nav class="nav-links" id="navLinks">
+          <a href="index.html">Home</a>
+          <a href="menu.html" class="active">Menu</a>
+          <a href="events.html">Events</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="reservations.html" class="btn-nav">Book Table</a>
+        </nav>
+
+        <div class="cart-wrap">
+          <button class="cart-btn" id="openCartBtn" aria-label="Open cart">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="filter:drop-shadow(0 1px 0 rgba(0,0,0,0.08));"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            Cart
+            <span id="cartCount" class="cart-count">0</span>
+          </button>
+        </div>
       </div>
-      <nav class="nav-links" id="navLinks">
-        <a href="index.html">Home</a>
-        <a href="menu.html" class="active">Menu</a>
-        <a href="events.html">Events</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="reservations.html" class="btn-nav">Book Table</a>
-      </nav>
     </div>
   </header>
 
@@ -198,8 +249,7 @@
         <span style="text-transform:uppercase;letter-spacing:2px;font-size:.8rem;opacity:.9;margin-bottom:8px;">Limited Time</span>
         <h2 class="serif">Winter Harvest Collection</h2>
         <p>Experience the warmth of the season with our new harvest menu, featuring root vegetables, rich game meats, and aromatic spices.</p>
-        <div style="margin-top:18px;">
-        </div>
+        <div style="margin-top:18px;"></div>
       </div>
     </div>
   </div>
@@ -249,6 +299,12 @@
         </div>
         <p class="card-desc">Creamy arborio rice slow-cooked with wild mushrooms, finished with truffle oil and shaved parmesan.</p>
         <div class="card-tags"><span class="tag">Vegetarian</span><span class="tag">Gluten Free</span></div>
+
+        <!-- quantity input on card -->
+        <div class="card-qty-row">
+          <input class="qty-input-card" type="number" min="1" value="1" aria-label="Quantity for Truffle Mushroom Risotto">
+        </div>
+
         <button class="btn-add-cart" type="button">Add to Order <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 6h15l-1 9H7L6 6z" stroke="currentColor" stroke-width="1.2"/></svg></button>
       </div>
     </article>
@@ -267,6 +323,11 @@
         </div>
         <p class="card-desc">Sustainably sourced salmon fillet served with roasted asparagus and a lemon butter sauce.</p>
         <div class="card-tags"><span class="tag">High Protein</span><span class="tag">Omega 3</span></div>
+
+        <div class="card-qty-row">
+          <input class="qty-input-card" type="number" min="1" value="1" aria-label="Quantity for Pan-Seared Atlantic Salmon">
+        </div>
+
         <button class="btn-add-cart" type="button">Add to Order <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 6h15l-1 9H7L6 6z" stroke="currentColor" stroke-width="1.2"/></svg></button>
       </div>
     </article>
@@ -285,6 +346,11 @@
         </div>
         <p class="card-desc">Grilled to perfection, served with garlic mashed potatoes and seasonal root vegetables.</p>
         <div class="card-tags"><span class="tag">Meat</span><span class="tag">Dinner</span></div>
+
+        <div class="card-qty-row">
+          <input class="qty-input-card" type="number" min="1" value="1" aria-label="Quantity for Prime Beef Steak">
+        </div>
+
         <button class="btn-add-cart" type="button">Add to Order <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 6h15l-1 9H7L6 6z" stroke="currentColor" stroke-width="1.2"/></svg></button>
       </div>
     </article>
@@ -302,6 +368,11 @@
         </div>
         <p class="card-desc">Velvety butternut squash soup topped with toasted pumpkin seeds and a swirl of cream.</p>
         <div class="card-tags"><span class="tag">Vegan Option</span><span class="tag">Starter</span></div>
+
+        <div class="card-qty-row">
+          <input class="qty-input-card" type="number" min="1" value="1" aria-label="Quantity for Roasted Squash Soup">
+        </div>
+
         <button class="btn-add-cart" type="button">Add to Order <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 6h15l-1 9H7L6 6z" stroke="currentColor" stroke-width="1.2"/></svg></button>
       </div>
     </article>
@@ -320,6 +391,11 @@
         </div>
         <p class="card-desc">Decadent warm chocolate cake with a molten center, served with vanilla bean ice cream.</p>
         <div class="card-tags"><span class="tag">Dessert</span><span class="tag">Sweet</span></div>
+
+        <div class="card-qty-row">
+          <input class="qty-input-card" type="number" min="1" value="1" aria-label="Quantity for Chocolate Lava Cake">
+        </div>
+
         <button class="btn-add-cart" type="button">Add to Order <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 6h15l-1 9H7L6 6z" stroke="currentColor" stroke-width="1.2"/></svg></button>
       </div>
     </article>
@@ -337,6 +413,11 @@
         </div>
         <p class="card-desc">Premium ceremonial matcha whisked with coconut milk and served over ice.</p>
         <div class="card-tags"><span class="tag">Drink</span><span class="tag">Vegan</span></div>
+
+        <div class="card-qty-row">
+          <input class="qty-input-card" type="number" min="1" value="1" aria-label="Quantity for Iced Coconut Matcha">
+        </div>
+
         <button class="btn-add-cart" type="button">Add to Order <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 6h15l-1 9H7L6 6z" stroke="currentColor" stroke-width="1.2"/></svg></button>
       </div>
     </article>
@@ -359,287 +440,334 @@
   <footer>
     <div class="container">
       <div class="serif" style="font-size:1.25rem;color:white;margin-bottom:10px;">GAURAV GARDEN</div>
-      <p>123 Culinary Avenue, Taste City, TC 90210</p>
-      <p style="margin-top:10px;">&copy; 2025 Gaurav Garden. All Rights Reserved.</p>
+      <p style="color:#a8a29e;">123 Culinary Avenue, Taste City, TC 90210</p>
+      <p style="margin-top:10px;color:#a8a29e;">&copy; 2025 Gaurav Garden. All Rights Reserved.</p>
+
+      <!-- Added credit line -->
+      <div style="margin-top:10px; font-size:0.9rem; color:#aaa; text-align:center;">
+        Crafted with ❤ by <span style="color:#D4AF37; font-weight:700;">Snehal Khodade</span>
+      </div>
     </div>
   </footer>
 
-  <!-- Interaction Scripts -->
+  <!-- Interaction & Cart Scripts -->
   <script>
-    // lucide (if loaded via CDN) - no need to call if the CDN auto inits, but safe fallback:
-    if (window.lucide && typeof window.lucide.createIcons === 'function') {
-      window.lucide.createIcons();
-    }
+    (function(){
+      // BUSINESS WHATSAPP number in international format (no '+' or spaces)
+      const BUSINESS_WHATSAPP_NUMBER = '918055000110'; // +91 8055000110
 
-    // Pill/filter behavior & search
-    (function() {
-      const pills = Array.from(document.querySelectorAll('.pill'));
-      const menuCards = Array.from(document.querySelectorAll('.menu-card'));
-      pills.forEach(pill => {
-        pill.addEventListener('click', () => {
-          const active = document.querySelector('.pill.active');
-          if (active) active.classList.remove('active');
-          pill.classList.add('active');
+      // LocalStorage key
+      const STORAGE_KEY = 'gaurav_cart_v1';
 
-          const filter = pill.getAttribute('data-filter') || 'all';
-          menuCards.forEach(card => {
-            if (filter === 'all' || card.dataset.category === filter) {
-              card.style.display = '';
-            } else {
-              card.style.display = 'none';
+      // Helpers
+      const $ = (sel, root=document) => root.querySelector(sel);
+      const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+      const money = n => '$' + Number(n).toFixed(2);
+
+      // Load/save cart
+      function loadCart(){
+        try { const raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : []; }
+        catch(e){ console.warn('cart load err', e); return []; }
+      }
+      function saveCart(cart){
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+        updateCartCount();
+      }
+
+      function findCartItem(cart, name, price){
+        return cart.find(it => it.name === name && Number(it.price) === Number(price));
+      }
+
+      // Update header cart count
+      function updateCartCount(){
+        const cart = loadCart();
+        const total = cart.reduce((s,i)=> s + Number(i.qty), 0);
+        const el = document.getElementById('cartCount');
+        if(el) el.textContent = total;
+      }
+
+      // Add-to-cart using qty input on card
+      function initAddButtons(){
+        $$('.btn-add-cart').forEach(btn=>{
+          btn.addEventListener('click', (e)=>{
+            const card = e.target.closest('.menu-card');
+            if(!card) return;
+            const name = (card.querySelector('.card-title')?.textContent || 'Item').trim();
+            const price = parseFloat(card.getAttribute('data-price')) || 0;
+            const qtyInput = card.querySelector('.qty-input-card');
+            let qty = 1;
+            if(qtyInput) {
+              const qv = parseInt(qtyInput.value,10);
+              qty = (isNaN(qv) || qv < 1) ? 1 : qv;
             }
+            // add to cart
+            const cart = loadCart();
+            const existing = findCartItem(cart, name, price);
+            if(existing){
+              existing.qty = Number(existing.qty) + qty;
+            } else {
+              cart.push({ name, price: Number(price), qty: Number(qty) });
+            }
+            saveCart(cart);
+            // small feedback
+            const prev = btn.textContent;
+            btn.textContent = 'Added ✓';
+            btn.disabled = true;
+            setTimeout(()=>{ btn.textContent = prev; btn.disabled = false; }, 900);
           });
         });
-      });
+      }
 
-      // Simple search (client-side)
-      const searchInput = document.getElementById('searchInput');
-      if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
+      // Build cart modal and render
+      function openCartModal(){
+        const existing = document.getElementById('cartOverlay');
+        if(existing) existing.remove();
+
+        const overlay = document.createElement('div');
+        overlay.id = 'cartOverlay';
+        overlay.className = 'cart-overlay';
+        overlay.innerHTML = `
+          <div class="cart-modal" role="dialog" aria-modal="true" aria-label="Cart">
+            <div class="cart-header">
+              <div style="font-weight:800;">Your Order</div>
+              <div>
+                <button id="closeCart" style="background:transparent;border:0;color:white;padding:8px 10px;cursor:pointer;font-weight:700">Close ✕</button>
+              </div>
+            </div>
+            <div class="cart-body" id="cartBody"></div>
+            <div class="cart-footer" id="cartFooter"></div>
+          </div>
+        `;
+        document.body.appendChild(overlay);
+
+        // Close handlers
+        $('#closeCart', overlay).addEventListener('click', ()=> overlay.remove());
+        overlay.addEventListener('click', (ev)=> { if(ev.target === overlay) overlay.remove(); });
+
+        renderCart();
+      }
+
+      function renderCart(){
+        const cart = loadCart();
+        const body = document.getElementById('cartBody');
+        const footer = document.getElementById('cartFooter');
+        body.innerHTML = '';
+        footer.innerHTML = '';
+
+        if(!cart.length){
+          body.innerHTML = `<div style="padding:28px;text-align:center;color:#666">Your cart is empty.</div>`;
+          footer.innerHTML = `<div style="display:flex;justify-content:flex-end"><button class="btn-clear" id="closeEmpty">Close</button></div>`;
+          document.getElementById('closeEmpty').addEventListener('click', ()=> document.getElementById('cartOverlay').remove());
+          return;
+        }
+
+        cart.forEach((item, idx)=>{
+          const row = document.createElement('div');
+          row.className = 'cart-item';
+          row.innerHTML = `
+            <div class="left">${item.qty}×</div>
+            <div class="meta">
+              <div class="name">${escapeHtml(item.name)}</div>
+              <div class="price">${money(item.price)} each</div>
+            </div>
+            <div class="cart-controls">
+              <input type="number" min="1" value="${item.qty}" data-idx="${idx}" class="cart-qty-input" aria-label="Quantity for ${escapeHtml(item.name)}">
+              <button class="cart-remove" data-idx="${idx}">Remove</button>
+            </div>
+          `;
+          body.appendChild(row);
+        });
+
+        // subtotal
+        const subtotal = cart.reduce((s,i)=> s + i.price * i.qty, 0);
+        const totalRow = document.createElement('div');
+        totalRow.className = 'total-row';
+        totalRow.style.marginBottom = '8px';
+        totalRow.innerHTML = `<div style="font-weight:800">Subtotal</div><div style="font-weight:800">${money(subtotal)}</div>`;
+        footer.appendChild(totalRow);
+
+        // customer inputs (name REQUIRED now)
+        const custDiv = document.createElement('div');
+        custDiv.style.display = 'flex';
+        custDiv.style.flexDirection = 'column';
+        custDiv.style.gap = '8px';
+        custDiv.innerHTML = `
+          <input id="custName" class="cust-input" placeholder="Your name (required)" aria-label="Customer name" required>
+          <input id="custPhone" class="cust-input" placeholder="Phone / WhatsApp (required)" aria-label="Customer phone" required>
+        `;
+        footer.appendChild(custDiv);
+
+        // actions
+        const actions = document.createElement('div');
+        actions.className = 'cart-actions';
+        actions.innerHTML = `
+          <button class="btn-clear" id="clearCartBtn">Clear Cart</button>
+          <button class="btn-send" id="sendCartBtn">Send Order via WhatsApp</button>
+        `;
+        footer.appendChild(actions);
+
+        // Handlers
+        $$('.cart-qty-input').forEach(inp=>{
+          inp.addEventListener('change', (e)=>{
+            let v = parseInt(e.target.value, 10);
+            if(isNaN(v) || v < 1) v = 1;
+            const idx = Number(e.target.dataset.idx);
+            const c = loadCart();
+            c[idx].qty = v;
+            saveCart(c);
+            renderCart();
+          });
+        });
+
+        $$('.cart-remove').forEach(btn=>{
+          btn.addEventListener('click', (e)=>{
+            const idx = Number(btn.dataset.idx);
+            const c = loadCart();
+            c.splice(idx,1);
+            saveCart(c);
+            renderCart();
+          });
+        });
+
+        document.getElementById('clearCartBtn').addEventListener('click', ()=>{
+          if(!confirm('Clear entire cart?')) return;
+          saveCart([]);
+          renderCart();
+        });
+
+        document.getElementById('sendCartBtn').addEventListener('click', ()=>{
+          const cartNow = loadCart();
+          if(!cartNow.length){ alert('Cart is empty'); return; }
+          const name = (document.getElementById('custName').value || '').trim();
+          const phone = (document.getElementById('custPhone').value || '').trim();
+
+          // enforce required name + phone
+          if(!name){
+            alert('Please enter your name (required).');
+            document.getElementById('custName').focus();
+            return;
+          }
+          if(!phone){
+            alert('Please enter your phone / WhatsApp number (required).');
+            document.getElementById('custPhone').focus();
+            return;
+          }
+
+          // Build message (updated purchase message)
+          const lines = [];
+          lines.push('Order from Gaurav Garden 🍽️');
+          lines.push('');
+          lines.push('Items:');
+          cartNow.forEach(it => {
+            const itemTotal = (Number(it.price) * Number(it.qty));
+            lines.push(`${it.qty} × ${it.name} — ${money(it.price)} each  (Line: ${money(itemTotal)})`);
+          });
+          lines.push('');
+          const subtotalNow = cartNow.reduce((s,i)=> s + i.price * i.qty, 0);
+          lines.push(`Subtotal: ${money(subtotalNow)}`);
+          lines.push('');
+          lines.push(`Name: ${name}`);
+          lines.push(`Contact (WhatsApp): ${phone}`);
+          lines.push('');
+          lines.push('Preferred: Please confirm availability, final price, and estimated time for pickup/delivery.');
+          lines.push('');
+          lines.push(`Website: ${window.location.href}`);
+
+          const message = lines.join('\n');
+          const waUrl = 'https://wa.me/' + encodeURIComponent(BUSINESS_WHATSAPP_NUMBER) + '?text=' + encodeURIComponent(message);
+          window.open(waUrl, '_blank');
+
+          // Optionally clear cart after sending — uncomment to enable:
+          // saveCart([]); renderCart();
+        });
+
+      } // end renderCart
+
+      // Escape html
+      function escapeHtml(str){ return String(str||'').replace(/[&<>"']/g, m=> ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]); }
+
+      // Init behavior: search, pills, add buttons, header cart open
+      function init() {
+        // search
+        const menuCards = Array.from(document.querySelectorAll('.menu-card'));
+        const searchInput = document.getElementById('searchInput');
+        if(searchInput) searchInput.addEventListener('input', (e)=>{
           const q = e.target.value.trim().toLowerCase();
-          menuCards.forEach(card => {
-            const title = card.querySelector('.card-title')?.textContent?.toLowerCase() || '';
-            const desc = card.querySelector('.card-desc')?.textContent?.toLowerCase() || '';
+          menuCards.forEach(card=>{
+            const title = (card.querySelector('.card-title')?.textContent || '').toLowerCase();
+            const desc = (card.querySelector('.card-desc')?.textContent || '').toLowerCase();
             const matches = !q || title.includes(q) || desc.includes(q);
             card.style.display = matches ? '' : 'none';
           });
         });
-      }
-    })();
 
-    // Hamburger toggle (responsive nav)
-    (function() {
-      const hamburger = document.getElementById('hamburger');
-      const nav = document.getElementById('navLinks');
-      if (!hamburger || !nav) return;
-
-      function resetNavOnResize() {
-        if (window.innerWidth > 768) {
-          nav.style.display = 'flex';
-          nav.style.flexDirection = 'row';
-          nav.style.position = '';
-          nav.style.top = '';
-          nav.style.left = '';
-          nav.style.width = '';
-          nav.style.background = '';
-          nav.style.padding = '';
-          nav.style.boxShadow = '';
-          hamburger.setAttribute('aria-expanded', 'false');
-        } else {
-          nav.style.display = 'none';
-          hamburger.setAttribute('aria-expanded', 'false');
-        }
-      }
-      window.addEventListener('resize', resetNavOnResize);
-      resetNavOnResize();
-
-      hamburger.addEventListener('click', () => {
-        const isHidden = getComputedStyle(nav).display === 'none';
-        if (isHidden) {
-          nav.style.display = 'flex';
-          nav.style.flexDirection = 'column';
-          nav.style.position = 'absolute';
-          nav.style.top = '80px';
-          nav.style.left = '0';
-          nav.style.width = '100%';
-          nav.style.background = 'white';
-          nav.style.padding = '16px';
-          nav.style.boxShadow = '0 5px 10px rgba(0,0,0,0.08)';
-          hamburger.setAttribute('aria-expanded', 'true');
-        } else {
-          nav.style.display = 'none';
-          hamburger.setAttribute('aria-expanded', 'false');
-        }
-      });
-    })();
-
-    /* ===========================
-       Add-to-WhatsApp order modal
-       Number used: 918055000110 (India: 91 + 8055000110)
-       =========================== */
-
-    (function() {
-      const BUSINESS_WHATSAPP_NUMBER = '918055000110'; // <-- international format (country code + number), no "+" or leading zeros
-
-      // small helper: escape HTML for insertion into modal
-      function escapeHtml(str) {
-        return String(str || '').replace(/[&<>"']/g, function(m) {
-          return ({
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#39;'
-          })[m];
-        });
-      }
-
-      // Inject modal CSS (kept minimal to avoid touching your main CSS)
-      const modalStyle = document.createElement('style');
-      modalStyle.textContent = `
-        .wa-order-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.45); display:flex; align-items:center; justify-content:center; z-index:2000; }
-        .wa-order-modal { width:100%; max-width:420px; background:#fff; border-radius:10px; padding:18px; box-shadow:0 12px 30px rgba(0,0,0,0.25); font-family:inherit; }
-        .wa-order-modal h4 { margin:0 0 8px; font-size:1.05rem; }
-        .wa-order-row { display:flex; gap:8px; margin-bottom:10px; flex-direction:column; }
-        .wa-order-row input[type="text"], .wa-order-row input[type="tel"], .wa-order-row input[type="number"] { width:100%; padding:10px; border-radius:6px; border:1px solid #e6e6e6; font-size:0.95rem; }
-        .wa-order-actions { display:flex; gap:8px; justify-content:flex-end; margin-top:8px; }
-        .wa-btn { padding:10px 12px; border-radius:8px; border:none; cursor:pointer; font-weight:600; }
-        .wa-btn.cancel { background:#f3f4f6; color:#111; }
-        .wa-btn.send { background:#25D366; color:white; } /* whatsapp-green */
-        .wa-small { font-size:0.85rem; color:#555; margin-bottom:6px; display:block; }
-        .wa-error { color:#b91c1c; font-size:0.85rem; margin-top:6px; display:none; }
-      `;
-      document.head.appendChild(modalStyle);
-
-      // Build & open wa.me url
-      function buildWhatsAppUrl(phoneNumber, message) {
-        const base = 'https://wa.me/';
-        return base + encodeURIComponent(phoneNumber) + '?text=' + encodeURIComponent(message);
-      }
-
-      // Create modal DOM and return controller
-      function createModal({ itemName, itemPrice }) {
-        const overlay = document.createElement('div');
-        overlay.className = 'wa-order-overlay';
-
-        const modal = document.createElement('div');
-        modal.className = 'wa-order-modal';
-        modal.setAttribute('role', 'dialog');
-        modal.setAttribute('aria-modal', 'true');
-
-        modal.innerHTML = `
-          <h4>Order: ${escapeHtml(itemName)}</h4>
-          <div class="wa-small">Price: ${escapeHtml(itemPrice || '')}</div>
-          <div class="wa-order-row">
-            <label class="wa-small" for="wa-cust-name">Your name</label>
-            <input id="wa-cust-name" type="text" placeholder="Full name" aria-label="Your name" />
-          </div>
-          <div class="wa-order-row">
-            <label class="wa-small" for="wa-cust-phone">Phone / WhatsApp (required)</label>
-            <input id="wa-cust-phone" type="tel" placeholder="+91 98xxxxxxx" aria-label="Your phone" />
-          </div>
-          <div class="wa-order-row">
-            <label class="wa-small" for="wa-qty">Quantity</label>
-            <input id="wa-qty" type="number" min="1" value="1" aria-label="Quantity" />
-          </div>
-          <div id="wa-error" class="wa-error" role="alert"></div>
-          <div class="wa-order-actions">
-            <button class="wa-btn cancel" id="wa-cancel">Cancel</button>
-            <button class="wa-btn send" id="wa-send">Send to WhatsApp</button>
-          </div>
-        `;
-
-        overlay.appendChild(modal);
-        document.body.appendChild(overlay);
-
-        const nameInput = modal.querySelector('#wa-cust-name');
-        const phoneInput = modal.querySelector('#wa-cust-phone');
-        const qtyInput = modal.querySelector('#wa-qty');
-        const sendBtn = modal.querySelector('#wa-send');
-        const cancelBtn = modal.querySelector('#wa-cancel');
-        const errorEl = modal.querySelector('#wa-error');
-
-        // Focus first field
-        nameInput.focus();
-
-        function close() {
-          document.body.removeChild(overlay);
-          document.removeEventListener('keydown', onKey);
-        }
-
-        function showError(msg) {
-          errorEl.textContent = msg;
-          errorEl.style.display = 'block';
-        }
-        function clearError() {
-          errorEl.textContent = '';
-          errorEl.style.display = 'none';
-        }
-
-        function onKey(e) {
-          if (e.key === 'Escape') close();
-          if (e.key === 'Enter') {
-            // Enter should submit only if not focused on name input to avoid accidental submit
-            if (document.activeElement !== nameInput) {
-              sendBtn.click();
-            }
-          }
-        }
-        document.addEventListener('keydown', onKey);
-
-        cancelBtn.addEventListener('click', (ev) => {
-          ev.preventDefault();
-          close();
-        });
-
-        sendBtn.addEventListener('click', (ev) => {
-          ev.preventDefault();
-          clearError();
-
-          const name = String(nameInput.value || '').trim();
-          const phone = String(phoneInput.value || '').trim();
-          const qtyRaw = qtyInput.value;
-          const qty = Math.max(1, parseInt(qtyRaw, 10) || 1);
-
-          // basic validation
-          if (!phone) {
-            showError('Please enter your phone number (WhatsApp).');
-            phoneInput.focus();
-            return;
-          }
-          // allow flexible phone formats but strip spaces for message
-          const normPhone = phone.replace(/\s+/g, '');
-
-          // Build message text
-          const pageUrl = window.location.href;
-          const lines = [
-            `Hello 👋, I'd like to place an order:`,
-            `${itemName}${itemPrice ? ' — ' + itemPrice : ''}`,
-            `Quantity: ${qty}`,
-            ``,
-            `Customer: ${name || '—'}`,
-            `Contact: ${normPhone}`,
-            ``,
-            `Please confirm price & availability.`,
-            `Sent from: ${pageUrl}`
-          ];
-          const message = lines.join('\n');
-
-          // Open WhatsApp chat
-          const waUrl = buildWhatsAppUrl(BUSINESS_WHATSAPP_NUMBER, message);
-          window.open(waUrl, '_blank');
-
-          // close modal (we don't wait for any confirmation)
-          close();
-        });
-
-        return { close };
-      }
-
-      // Attach click handlers to all Add to Order buttons
-      function initButtons() {
-        const buttons = Array.from(document.querySelectorAll('.btn-add-cart'));
-        buttons.forEach(btn => {
-          btn.addEventListener('click', (ev) => {
-            ev.preventDefault();
-            const card = btn.closest('.menu-card');
-            if (!card) return;
-            const title = card.querySelector('.card-title')?.textContent?.trim() || 'Item';
-            const price = card.querySelector('.card-price')?.textContent?.trim() || '';
-            createModal({ itemName: title, itemPrice: price });
+        // pills
+        const pills = Array.from(document.querySelectorAll('.pill'));
+        pills.forEach(pill=>{
+          pill.addEventListener('click', ()=>{
+            const active = document.querySelector('.pill.active');
+            if(active) active.classList.remove('active');
+            pill.classList.add('active');
+            const filter = pill.getAttribute('data-filter') || 'all';
+            menuCards.forEach(card=>{
+              if(filter === 'all' || card.dataset.category === filter) card.style.display = '';
+              else card.style.display = 'none';
+            });
           });
         });
+
+        // add buttons + quantity inputs handled
+        initAddButtons();
+
+        // header cart open
+        const openCartBtn = document.getElementById('openCartBtn');
+        if(openCartBtn) openCartBtn.addEventListener('click', openCartModal);
+
+        // ensure cart count updates on load
+        updateCartCount();
+
+        // keep cart count if localStorage changed in another tab
+        window.addEventListener('storage', (e)=> { if(e.key === STORAGE_KEY) updateCartCount(); });
+
+        // hamburger responsive (retain your earlier code)
+        (function(){
+          const hamburger = document.getElementById('hamburger');
+          const nav = document.getElementById('navLinks');
+          if (!hamburger || !nav) return;
+          function resetNavOnResize() {
+            if (window.innerWidth > 768) {
+              nav.style.display = 'flex';
+              nav.style.flexDirection = 'row';
+            } else {
+              nav.style.display = 'none';
+            }
+          }
+          window.addEventListener('resize', resetNavOnResize);
+          resetNavOnResize();
+          hamburger.addEventListener('click', () => {
+            const isHidden = getComputedStyle(nav).display === 'none';
+            if (isHidden) {
+              nav.style.display = 'flex';
+              nav.style.flexDirection = 'column';
+              nav.style.position = 'absolute';
+              nav.style.top = '80px';
+              nav.style.left = '0';
+              nav.style.width = '100%';
+              nav.style.background = 'white';
+              nav.style.padding = '16px';
+              nav.style.boxShadow = '0 5px 10px rgba(0,0,0,0.08)';
+            } else {
+              nav.style.display = 'none';
+            }
+          });
+        })();
       }
 
-      // Initialize on DOM ready (if script loaded later, run immediately)
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initButtons);
-      } else {
-        initButtons();
-      }
+      // run init on DOMContentLoaded
+      if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+      else init();
 
     })();
   </script>
 </body>
 </html>
-
