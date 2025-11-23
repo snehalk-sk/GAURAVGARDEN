@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Contact Us | Gaurao Garden</title>
-    <!-- Fonts: Playfair Display (Serif) & Lato (Sans) -->
+
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    
+
     <style>
         :root {
-            --primary-maroon: #7F1D1D; 
+            --primary-maroon: #7F1D1D;
             --primary-hover: #5e1414;
-            --accent-gold: #D4AF37; 
-            --accent-gold-light: #FDE047;
+            --accent-gold: #D4AF37;
             --bg-light: #FAFAF9;
             --text-dark: #1C1917;
             --text-gray: #57534E;
             --white: #FFFFFF;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
             --whatsapp-green: #25D366;
         }
 
@@ -35,7 +36,7 @@
 
         h1, h2, h3, h4, .serif { font-family: 'Playfair Display', serif; }
 
-        /* --- Header / Nav --- */
+        /* Header */
         header {
             background-color: var(--white);
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
@@ -59,15 +60,22 @@
         }
 
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             font-size: 1.5rem;
             color: var(--primary-maroon);
             text-decoration: none;
             letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        }
+
+        .logo-img {
+            width: 100px;
+            height: 90px;
+            object-fit: cover;
+            margin-right: 1px;
         }
 
         .nav-links { display: flex; gap: 30px; align-items: center; }
@@ -89,16 +97,17 @@
             border-radius: 4px;
             transition: background 0.3s;
         }
-        
+
         .btn-nav:hover { background-color: var(--primary-hover); }
 
         .hamburger { display: none; cursor: pointer; font-size: 1.5rem; }
 
-        /* --- Contact Hero --- */
+        /* Hero */
         .contact-hero {
             height: 50vh;
             margin-top: 80px;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1550966871-3ed3c47e2ce2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                        url('https://images.unsplash.com/photo-1550966871-3ed3c47e2ce2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -108,15 +117,10 @@
             color: white;
         }
 
-        .contact-hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
-        }
+        .contact-hero h1 { font-size: 3.2rem; margin-bottom: 8px; }
 
-        /* --- Contact Layout --- */
-        .contact-section {
-            padding: 80px 0;
-        }
+        /* Contact */
+        .contact-section { padding: 80px 0; }
 
         .contact-grid {
             display: grid;
@@ -124,7 +128,6 @@
             gap: 60px;
         }
 
-        /* --- Contact Info Cards --- */
         .info-card {
             display: flex;
             gap: 20px;
@@ -142,24 +145,14 @@
             justify-content: center;
         }
 
-        /* Specific style for WhatsApp icon */
         .info-icon.whatsapp {
             background-color: #dcf8c6;
             color: #075e54;
         }
 
-        .info-content h3 {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-            color: var(--text-dark);
-        }
+        .info-content h3 { font-size: 1.1rem; margin-bottom: 4px; color: var(--text-dark); }
+        .info-content p { color: var(--text-gray); font-size: 0.95rem; }
 
-        .info-content p {
-            color: var(--text-gray);
-            font-size: 0.95rem;
-        }
-
-        /* --- Form --- */
         .contact-form-container {
             background: white;
             padding: 40px;
@@ -167,27 +160,19 @@
             box-shadow: var(--shadow);
         }
 
-        .form-group { margin-bottom: 20px; }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display:block; margin-bottom:8px; font-weight:600; color:var(--text-dark); }
 
         .form-control {
             width: 100%;
             padding: 12px;
             background: #FAFAF9;
             border: 1px solid #e5e5e5;
-            border-radius: 4px;
-            color: var(--text-dark);
+            border-radius: 6px;
             font-family: inherit;
         }
 
-        .form-control:focus { outline: none; border-color: var(--accent-gold); background: white; }
+        .form-control:focus { outline:none; border-color: var(--accent-gold); background: #fff; }
 
         .btn-submit {
             background-color: var(--primary-maroon);
@@ -197,31 +182,23 @@
             width: 100%;
             font-weight: 700;
             cursor: pointer;
-            border-radius: 4px;
-            transition: background 0.3s;
+            border-radius: 6px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         .btn-submit:hover { background-color: var(--primary-hover); }
 
-        /* --- Map Section --- */
+        /* Map */
         .map-container {
             height: 450px;
             width: 100%;
-            background-color: #e5e5e5;
-            margin-top: 80px;
-            position: relative;
-        }
-        
-        .map-frame {
-            width: 100%;
-            height: 100%;
-            border: 0;
-            filter: grayscale(0.1); /* Slight desaturation for elegance */
+            margin-top: 60px;
         }
 
-        /* --- WhatsApp Float --- */
+        .map-frame { width: 100%; height: 100%; border: 0; filter: grayscale(0.05); }
+
+        /* WhatsApp float */
         .whatsapp-float {
             position: fixed;
             bottom: 30px;
@@ -236,12 +213,7 @@
             justify-content: center;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             z-index: 2000;
-            transition: transform 0.3s;
             text-decoration: none;
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.1);
         }
 
         .whatsapp-tooltip {
@@ -256,19 +228,18 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             white-space: nowrap;
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity 0.25s;
             pointer-events: none;
         }
 
-        .whatsapp-float:hover .whatsapp-tooltip {
-            opacity: 1;
-        }
+        .whatsapp-float:hover .whatsapp-tooltip { opacity: 1; }
 
-        /* --- Footer --- */
+        /* Footer */
         footer {
             background-color: #000;
             color: #9CA3AF;
             padding: 60px 0 20px;
+            margin-top: 40px;
         }
         .footer-grid {
             display: grid;
@@ -289,18 +260,6 @@
             .contact-form-container { padding: 25px; }
             .whatsapp-float { bottom: 20px; left: 20px; width: 50px; height: 50px; }
         }
-.logo-img {
-    width: 100px;      /* adjust size */
-    height: 90px;     /* keep square */
-    object-fit: cover;
-    margin-right: 1px;
-}
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
     </style>
 </head>
 <body>
@@ -312,7 +271,9 @@
                 <img src="IMG_4649.PNG" alt="Logo" class="logo-img">
                 GAURAV GARDEN
             </a>
+
             <div class="hamburger"><i data-lucide="menu"></i></div>
+
             <nav class="nav-links">
                 <a href="index.html">Home</a>
                 <a href="menu.html">Menu</a>
@@ -321,7 +282,6 @@
                 <a href="about.html">About</a>
                 <a href="contact.html" class="active">Contact</a>
                 <a href="reservations.html" class="btn-nav">Book Table</a>
-                
             </nav>
         </div>
     </header>
@@ -330,20 +290,19 @@
     <section class="contact-hero">
         <div class="container">
             <h1 class="serif">Get in Touch</h1>
-            <p style="font-size: 1.1rem; color: rgba(255,255,255,0.9);">We'd love to hear from you. Reach out for reservations or inquiries.</p>
+            <p style="font-size:1.05rem; color: rgba(255,255,255,0.9);">We'd love to hear from you. Reach out for reservations or inquiries.</p>
         </div>
     </section>
 
-    <!-- Content -->
+    <!-- Contact Section -->
     <section class="contact-section">
         <div class="container">
             <div class="contact-grid">
-                
                 <!-- Left: Info -->
                 <div>
                     <span style="color: var(--primary-maroon); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 20px;">Contact Information</span>
-                    <h2 class="serif" style="margin-bottom: 40px; font-size: 2.5rem; line-height: 1.2;">Visit Us or Drop a Message</h2>
-                    
+                    <h2 class="serif" style="margin-bottom: 30px; font-size: 2.2rem; line-height:1.15;">Visit Us or Drop a Message</h2>
+
                     <div class="info-card">
                         <div class="info-icon"><i data-lucide="map-pin"></i></div>
                         <div class="info-content">
@@ -356,16 +315,16 @@
                         <div class="info-icon"><i data-lucide="phone"></i></div>
                         <div class="info-content">
                             <h3 class="serif">Phone</h3>
-                            <p>+91 8055000110<br>+91 8055000110</p>
+                            <p>+91 8055000110</p>
                         </div>
                     </div>
 
-                    <!-- WhatsApp Card -->
                     <div class="info-card">
                         <div class="info-icon whatsapp"><i data-lucide="message-circle"></i></div>
                         <div class="info-content">
                             <h3 class="serif">WhatsApp</h3>
-                            <p>+91 8055000110<br><a href="https://wa.me/8055000110" style="color: var(--primary-maroon); font-weight: 600; text-decoration: none;">Chat with us</a></p>
+                            <p>+91 8055000110<br>
+                            <a href="https://wa.me/918055000110" style="color: var(--primary-maroon); font-weight:600; text-decoration:none;">Chat with us</a></p>
                         </div>
                     </div>
 
@@ -381,51 +340,59 @@
                 <!-- Right: Form -->
                 <div>
                     <div class="contact-form-container">
-                        <h3 class="serif" style="margin-bottom: 20px; font-size: 1.8rem;">Send a Message</h3>
-                        <form onsubmit="event.preventDefault(); alert('Message sent! We will contact you soon.');">
+                        <h3 class="serif" style="margin-bottom: 20px; font-size:1.6rem;">Send a Message</h3>
+
+                        <form id="contactForm" onsubmit="sendWhatsAppMessage(event)">
                             <div class="form-group">
-                                <label>Your Name</label>
-                                <input type="text" class="form-control" placeholder="Enter your name">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
                             </div>
+
                             <div class="form-group">
-                                <label>Phone Number</label>
-                                <input type="tel" class="form-control" placeholder="+91 00000 00000">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" class="form-control" placeholder="+91 00000 00000" required>
                             </div>
+
                             <div class="form-group">
-                                <label>Subject</label>
-                                <select class="form-control">
+                                <label for="subject">Subject</label>
+                                <select id="subject" class="form-control">
                                     <option>Table Reservation</option>
                                     <option>Event Inquiry</option>
                                     <option>Feedback</option>
                                     <option>Other</option>
                                 </select>
                             </div>
+
                             <div class="form-group">
-                                <label>Message</label>
-                                <textarea class="form-control" rows="5" placeholder="How can we help you?"></textarea>
+                                <label for="message">Message</label>
+                                <textarea id="message" class="form-control" rows="5" placeholder="How can we help you?" required></textarea>
                             </div>
+
                             <button type="submit" class="btn-submit">Send Message</button>
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- Map Section (Live OpenStreetMap) -->
+    <!-- Map -->
     <div class="map-container">
-        <!-- Embedding Parner region map -->
-        <iframe 
+        <iframe
             class="map-frame"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=74.4200,19.0000,74.4600,19.0300&layer=mapnik&marker=19.0090,74.4400" 
+            src="https://www.openstreetmap.org/export/embed.html?bbox=74.4200,19.0000,74.4600,19.0300&layer=mapnik&marker=19.0090,74.4400"
             title="Gaurao Garden Location">
         </iframe>
     </div>
 
-    <!-- WhatsApp Float Button -->
-    <a href="https://wa.me/8055000110" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
-        <i data-lucide="message-circle" size="32"></i>
+    <!-- Credit line (added) -->
+    <div style="margin-top:20px; margin-bottom:30px; font-size:0.9rem; color:#777; text-align:center;">
+        Crafted with ❤ by <span style="color:#D4AF37; font-weight:700;">Snehal Khodade</span>
+    </div>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/918055000110" class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
+        <i data-lucide="message-circle" size="28"></i>
         <span class="whatsapp-tooltip">Chat with us!</span>
     </a>
 
@@ -439,7 +406,7 @@
                     </div>
                     <p>The best dining experience for you and your family. We serve love on a plate with memories.</p>
                 </div>
-                
+
                 <div class="footer-col">
                     <h4>Quick Links</h4>
                     <ul>
@@ -450,7 +417,6 @@
                         <li><a href="reservations.html">Book Table</a></li>
                         <li><a href="events.html">Events</a></li>
                         <li><a href="gallery.html">Gallery</a></li>
-
                     </ul>
                 </div>
 
@@ -466,29 +432,32 @@
                 <div class="footer-col">
                     <h4>Opening Hours</h4>
                     <ul>
-                        <li style="display: flex; justify-content: space-between;"><span>Mon - Sun:</span> <span style="color: white;">10:00 - 12:00pm</span></li>
+                        <li style="display:flex; justify-content:space-between;">
+                            <span>Mon - Sun:</span> <span style="color:white;">10:00 AM - 11:00 PM</span>
+                        </li>
                     </ul>
                 </div>
             </div>
-            
-            <div style="text-align: center; border-top: 1px solid #333; padding-top: 20px; font-size: 0.8rem;">
+
+            <div style="text-align:center; border-top:1px solid #333; padding-top:20px; font-size:0.8rem;">
                 &copy; 2025 Gaurav Garden. All Rights Reserved.
             </div>
         </div>
     </footer>
 
     <script>
+        // Initialize icons
         lucide.createIcons();
 
-        // Hamburger Menu Toggle
+        // Hamburger Toggle
         const hamburger = document.querySelector('.hamburger');
         const navLinks = document.querySelector('.nav-links');
-        
-        if(hamburger) {
+
+        if (hamburger) {
             hamburger.addEventListener('click', () => {
-                const isHidden = navLinks.style.display === 'none' || navLinks.style.display === '';
-                navLinks.style.display = isHidden ? 'flex' : 'none';
-                if(isHidden) {
+                const isVisible = navLinks.style.display === 'flex';
+                if (!isVisible) {
+                    navLinks.style.display = 'flex';
                     navLinks.style.flexDirection = 'column';
                     navLinks.style.position = 'absolute';
                     navLinks.style.top = '80px';
@@ -496,9 +465,37 @@
                     navLinks.style.width = '100%';
                     navLinks.style.background = 'white';
                     navLinks.style.padding = '20px';
-                    navLinks.style.boxShadow = '0 5px 5px rgba(0,0,0,0.1)';
+                    navLinks.style.boxShadow = '0 5px 5px rgba(0,0,0,0.08)';
+                } else {
+                    navLinks.style.display = 'none';
                 }
             });
+        }
+
+        // Send form data to WhatsApp (8055000110 -> 918055000110)
+        function sendWhatsAppMessage(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            // Prepare message text
+            let finalMessage = "New Inquiry from website:%0A%0A";
+            finalMessage += "Name: " + name + "%0A";
+            finalMessage += "Phone: " + phone + "%0A";
+            finalMessage += "Subject: " + subject + "%0A";
+            finalMessage += "Message: " + message;
+
+            // If you prefer encodeURIComponent instead of manual %0A,
+            // you can use: const text = encodeURIComponent(...)
+            // but here we already use %0A for newlines for compatibility.
+            const waNumber = "918055000110";
+            const waUrl = `https://wa.me/${waNumber}?text=${finalMessage}`;
+
+            // Open in new tab (WhatsApp Web or Mobile)
+            window.open(waUrl, "_blank");
         }
     </script>
 </body>
