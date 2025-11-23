@@ -154,6 +154,8 @@
     gap: 8px;
 }
 
+/* --- Modal styles will be injected by script for cleanliness --- */
+
   </style>
 </head>
 <body>
@@ -161,10 +163,9 @@
   <!-- Header -->
   <header>
     <div class="container nav-container">
-            <a href="index.html" class="logo">
-                <img src="IMG_4649.PNG" alt="Logo" class="logo-img">
-                GAURAV GARDEN
-            </a>
+            <div style="margin-top:10px; font-size:0.9rem; color:#aaa; text-align:center;">
+                  Crafted with ❤ by <span style="color:#D4AF37; font-weight:700;">Snehal Khodade</span>
+            </div>
 
       <div class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -197,7 +198,6 @@
         <h2 class="serif">Winter Harvest Collection</h2>
         <p>Experience the warmth of the season with our new harvest menu, featuring root vegetables, rich game meats, and aromatic spices.</p>
         <div style="margin-top:18px;">
-          <button class="btn-gold" type="button">View Collection</button>
         </div>
       </div>
     </div>
@@ -213,9 +213,9 @@
 
       <div style="display:flex; gap:10px; align-items:center;">
         <select id="sortSelect" style="padding:12px;border:1px solid #e5e5e5;border-radius:6px;background:white;color:#555;">
-          <option>Sort by: Recommended</option>
-          <option>Price: Low to High</option>
-          <option>Price: High to Low</option>
+          <option value="recommended">Sort by: Recommended</option>
+          <option value="low-high">Price: Low to High</option>
+          <option value="high-low">Price: High to Low</option>
         </select>
       </div>
     </div>
@@ -235,7 +235,7 @@
   <!-- Menu Grid -->
   <main class="menu-grid" id="menuGrid" aria-live="polite">
     <!-- Card 1 -->
-    <article class="menu-card" data-category="main">
+    <article class="menu-card" data-category="main" data-price="28">
       <div class="card-image-container">
         <img class="card-image" src="https://images.unsplash.com/photo-1555126634-323283e090fa?auto=format&fit=crop&w=800&q=80" alt="Truffle Mushroom Risotto">
         <span class="card-badge">Seasonal</span>
@@ -253,7 +253,7 @@
     </article>
 
     <!-- Card 2 -->
-    <article class="menu-card" data-category="main">
+    <article class="menu-card" data-category="main" data-price="34">
       <div class="card-image-container">
         <img class="card-image" src="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=800&q=80" alt="Pan-Seared Atlantic Salmon">
         <span class="card-badge popular">Popular</span>
@@ -271,7 +271,7 @@
     </article>
 
     <!-- Card 3 -->
-    <article class="menu-card" data-category="main">
+    <article class="menu-card" data-category="main" data-price="45">
       <div class="card-image-container">
         <img class="card-image" src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" alt="Prime Beef Steak">
         <span class="card-badge">New</span>
@@ -289,7 +289,7 @@
     </article>
 
     <!-- Card 4 -->
-    <article class="menu-card" data-category="appetizer">
+    <article class="menu-card" data-category="appetizer" data-price="12">
       <div class="card-image-container">
         <img class="card-image" src="https://images.unsplash.com/photo-1547496502-ffa7664a006b?auto=format&fit=crop&w=800&q=80" alt="Roasted Squash Soup">
         <button class="like-btn" aria-label="Like Roasted Squash Soup"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" fill="#7F1D1D"/></svg></button>
@@ -306,7 +306,7 @@
     </article>
 
     <!-- Card 5 -->
-    <article class="menu-card" data-category="dessert">
+    <article class="menu-card" data-category="dessert" data-price="14">
       <div class="card-image-container">
         <img class="card-image" src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=800&q=80" alt="Chocolate Lava Cake">
         <span class="card-badge popular">Must Try</span>
@@ -324,7 +324,7 @@
     </article>
 
     <!-- Card 6 -->
-    <article class="menu-card" data-category="drinks">
+    <article class="menu-card" data-category="drinks" data-price="8">
       <div class="card-image-container">
         <img class="card-image" src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=800&q=80" alt="Iced Coconut Matcha">
         <button class="like-btn" aria-label="Like Iced Coconut Matcha"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" fill="#7F1D1D"/></svg></button>
@@ -370,7 +370,7 @@
       window.lucide.createIcons();
     }
 
-    // Pill/filter behavior
+    // Pill/filter behavior & search
     (function() {
       const pills = Array.from(document.querySelectorAll('.pill'));
       const menuCards = Array.from(document.querySelectorAll('.menu-card'));
@@ -412,7 +412,6 @@
       const nav = document.getElementById('navLinks');
       if (!hamburger || !nav) return;
 
-      // Ensure nav shows on desktop by default (if window resized)
       function resetNavOnResize() {
         if (window.innerWidth > 768) {
           nav.style.display = 'flex';
@@ -451,6 +450,193 @@
           hamburger.setAttribute('aria-expanded', 'false');
         }
       });
+    })();
+
+    /* ===========================
+       Add-to-WhatsApp order modal
+       Number used: 918055000110 (India: 91 + 8055000110)
+       =========================== */
+
+    (function() {
+      const BUSINESS_WHATSAPP_NUMBER = '918055000110'; // <-- international format (country code + number), no "+" or leading zeros
+
+      // small helper: escape HTML for insertion into modal
+      function escapeHtml(str) {
+        return String(str || '').replace(/[&<>"']/g, function(m) {
+          return ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+          })[m];
+        });
+      }
+
+      // Inject modal CSS (kept minimal to avoid touching your main CSS)
+      const modalStyle = document.createElement('style');
+      modalStyle.textContent = `
+        .wa-order-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.45); display:flex; align-items:center; justify-content:center; z-index:2000; }
+        .wa-order-modal { width:100%; max-width:420px; background:#fff; border-radius:10px; padding:18px; box-shadow:0 12px 30px rgba(0,0,0,0.25); font-family:inherit; }
+        .wa-order-modal h4 { margin:0 0 8px; font-size:1.05rem; }
+        .wa-order-row { display:flex; gap:8px; margin-bottom:10px; flex-direction:column; }
+        .wa-order-row input[type="text"], .wa-order-row input[type="tel"], .wa-order-row input[type="number"] { width:100%; padding:10px; border-radius:6px; border:1px solid #e6e6e6; font-size:0.95rem; }
+        .wa-order-actions { display:flex; gap:8px; justify-content:flex-end; margin-top:8px; }
+        .wa-btn { padding:10px 12px; border-radius:8px; border:none; cursor:pointer; font-weight:600; }
+        .wa-btn.cancel { background:#f3f4f6; color:#111; }
+        .wa-btn.send { background:#25D366; color:white; } /* whatsapp-green */
+        .wa-small { font-size:0.85rem; color:#555; margin-bottom:6px; display:block; }
+        .wa-error { color:#b91c1c; font-size:0.85rem; margin-top:6px; display:none; }
+      `;
+      document.head.appendChild(modalStyle);
+
+      // Build & open wa.me url
+      function buildWhatsAppUrl(phoneNumber, message) {
+        const base = 'https://wa.me/';
+        return base + encodeURIComponent(phoneNumber) + '?text=' + encodeURIComponent(message);
+      }
+
+      // Create modal DOM and return controller
+      function createModal({ itemName, itemPrice }) {
+        const overlay = document.createElement('div');
+        overlay.className = 'wa-order-overlay';
+
+        const modal = document.createElement('div');
+        modal.className = 'wa-order-modal';
+        modal.setAttribute('role', 'dialog');
+        modal.setAttribute('aria-modal', 'true');
+
+        modal.innerHTML = `
+          <h4>Order: ${escapeHtml(itemName)}</h4>
+          <div class="wa-small">Price: ${escapeHtml(itemPrice || '')}</div>
+          <div class="wa-order-row">
+            <label class="wa-small" for="wa-cust-name">Your name</label>
+            <input id="wa-cust-name" type="text" placeholder="Full name" aria-label="Your name" />
+          </div>
+          <div class="wa-order-row">
+            <label class="wa-small" for="wa-cust-phone">Phone / WhatsApp (required)</label>
+            <input id="wa-cust-phone" type="tel" placeholder="+91 98xxxxxxx" aria-label="Your phone" />
+          </div>
+          <div class="wa-order-row">
+            <label class="wa-small" for="wa-qty">Quantity</label>
+            <input id="wa-qty" type="number" min="1" value="1" aria-label="Quantity" />
+          </div>
+          <div id="wa-error" class="wa-error" role="alert"></div>
+          <div class="wa-order-actions">
+            <button class="wa-btn cancel" id="wa-cancel">Cancel</button>
+            <button class="wa-btn send" id="wa-send">Send to WhatsApp</button>
+          </div>
+        `;
+
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+
+        const nameInput = modal.querySelector('#wa-cust-name');
+        const phoneInput = modal.querySelector('#wa-cust-phone');
+        const qtyInput = modal.querySelector('#wa-qty');
+        const sendBtn = modal.querySelector('#wa-send');
+        const cancelBtn = modal.querySelector('#wa-cancel');
+        const errorEl = modal.querySelector('#wa-error');
+
+        // Focus first field
+        nameInput.focus();
+
+        function close() {
+          document.body.removeChild(overlay);
+          document.removeEventListener('keydown', onKey);
+        }
+
+        function showError(msg) {
+          errorEl.textContent = msg;
+          errorEl.style.display = 'block';
+        }
+        function clearError() {
+          errorEl.textContent = '';
+          errorEl.style.display = 'none';
+        }
+
+        function onKey(e) {
+          if (e.key === 'Escape') close();
+          if (e.key === 'Enter') {
+            // Enter should submit only if not focused on name input to avoid accidental submit
+            if (document.activeElement !== nameInput) {
+              sendBtn.click();
+            }
+          }
+        }
+        document.addEventListener('keydown', onKey);
+
+        cancelBtn.addEventListener('click', (ev) => {
+          ev.preventDefault();
+          close();
+        });
+
+        sendBtn.addEventListener('click', (ev) => {
+          ev.preventDefault();
+          clearError();
+
+          const name = String(nameInput.value || '').trim();
+          const phone = String(phoneInput.value || '').trim();
+          const qtyRaw = qtyInput.value;
+          const qty = Math.max(1, parseInt(qtyRaw, 10) || 1);
+
+          // basic validation
+          if (!phone) {
+            showError('Please enter your phone number (WhatsApp).');
+            phoneInput.focus();
+            return;
+          }
+          // allow flexible phone formats but strip spaces for message
+          const normPhone = phone.replace(/\s+/g, '');
+
+          // Build message text
+          const pageUrl = window.location.href;
+          const lines = [
+            `Hello 👋, I'd like to place an order:`,
+            `${itemName}${itemPrice ? ' — ' + itemPrice : ''}`,
+            `Quantity: ${qty}`,
+            ``,
+            `Customer: ${name || '—'}`,
+            `Contact: ${normPhone}`,
+            ``,
+            `Please confirm price & availability.`,
+            `Sent from: ${pageUrl}`
+          ];
+          const message = lines.join('\n');
+
+          // Open WhatsApp chat
+          const waUrl = buildWhatsAppUrl(BUSINESS_WHATSAPP_NUMBER, message);
+          window.open(waUrl, '_blank');
+
+          // close modal (we don't wait for any confirmation)
+          close();
+        });
+
+        return { close };
+      }
+
+      // Attach click handlers to all Add to Order buttons
+      function initButtons() {
+        const buttons = Array.from(document.querySelectorAll('.btn-add-cart'));
+        buttons.forEach(btn => {
+          btn.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            const card = btn.closest('.menu-card');
+            if (!card) return;
+            const title = card.querySelector('.card-title')?.textContent?.trim() || 'Item';
+            const price = card.querySelector('.card-price')?.textContent?.trim() || '';
+            createModal({ itemName: title, itemPrice: price });
+          });
+        });
+      }
+
+      // Initialize on DOM ready (if script loaded later, run immediately)
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initButtons);
+      } else {
+        initButtons();
+      }
+
     })();
   </script>
 </body>
